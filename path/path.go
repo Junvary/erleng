@@ -13,10 +13,13 @@ func IsExist(path string) bool {
 	return false
 }
 
+// CreatePath 创建路径
 func CreatePath(path ...string) error {
 	for _, p := range path {
 		if !IsExist(p) {
-			return os.MkdirAll(p, os.ModePerm)
+			if err := os.MkdirAll(p, os.ModePerm); err != nil {
+				return err
+			}
 		}
 	}
 	return nil
